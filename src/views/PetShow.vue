@@ -18,7 +18,7 @@
         name: 'PetShow',
         computed: {
             pet: function() {
-                return this.$store.getters.getTodoById(this.$route.params.id)
+                return this.$store.getters.getPetById(this.$route.params.id)
             }
         }
     }

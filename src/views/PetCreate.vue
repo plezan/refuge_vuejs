@@ -4,10 +4,17 @@
             Fiche animal
         </div>
         <div class="card-body">
-            <p>Nom : {{pet.name}}</p>
-            <p>Espèce : {{pet.race}}</p>
-            <router-link :to="{ name: 'EditPet', params: { id: pet.id }}"><button class="btn btn-secondary">Modifier la fiche animal</button></router-link>
-            <button class="btn btn-primary">Ajouter au panier</button>
+            <form>
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input class="form-control" id="name" v-model="pet.name">
+                </div>
+                <div class="form-group">
+                    <label for="race">Espèce</label>
+                    <input class="form-control" id="race"  v-model="pet.race">
+                </div>
+                <button type="button" class="btn btn-primary" @click="save">Enregistrer</button>
+            </form>
         </div>
     </div>
 </template>
@@ -15,10 +22,16 @@
 
 <script>
     export default {
-        name: 'PetShow',
-        data: function() {
-            return{
-                pet : this.$store.state.pets[this.$route.params.id]
+        name: 'PetCreate',
+        data: function(){return {
+            pet:{}
+        };},
+        methods: {
+            save : function () {
+                // save the pet
+                this.$store.commit('addPet',this.pet);
+                // go back
+                this.$router.go(-1);
             }
         }
     }

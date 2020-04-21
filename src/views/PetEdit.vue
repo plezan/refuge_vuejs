@@ -13,7 +13,7 @@
                     <label for="race">Espèce</label>
                     <input class="form-control" id="race"  v-model="pet.race">
                 </div>
-                <button type="button" class="btn btn-primary" @click="back">Enregistrer</button>
+                <button type="button" class="btn btn-primary" @click="save">Enregistrer</button>
             </form>
         </div>
     </div>
@@ -25,11 +25,14 @@
         name: 'PetShow',
         computed: {
             pet: function() {
-                return this.$store.getters.getTodoById(this.$route.params.id)
+                return this.$store.getters.getPetById(this.$route.params.id)
             }
         },
         methods: {
-            back : function () {
+            save : function () {
+                // save the pet
+                this.$store.commit('editPet',this.pet);
+                // go back
                 this.$router.go(-1);
             }
         }

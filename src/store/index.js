@@ -1,24 +1,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Pet from "../models/Pet";
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        pets: [
-            new Pet(1, 'chien', 'Milou'),
-            new Pet(2, 'chien', 'Idéfix'),
-            new Pet(3, 'chat', 'Gardfiel'),
-            new Pet(4, 'chien', 'Snoopy'),
-        ],
+  state: {
+    pets:[
+      {
+        id: 1,
+        name: 'yoyo',
+        race: 'chat'
+      },{
+        id: 2,
+        name: 'yaya',
+        race: 'chien'
+      },
+    ]
+  },
+  getters: {
+    getPetById: state=> function(id){
+      for (const pet of state.pets) {
+        if(pet.id==id) return pet; 
+      }
+    }
+  },
+  mutations: {
+    addPet(state,pet){
+      pet.id = state.pets.length+1;
+      state.pets.push(pet);
     },
-    getters: {
-        getTodoById: (state) => (id) => {
-            return state.pets.find(pet => pet.id == id)
-        }
-    },
-    mutations: {},
-    actions: {},
-    modules: {}
+    editPet(state,pet){
+      state.pets[pet.id-1] = pet;
+    }
+  },
+  actions: {
+  },
+  modules: {
+  }
 })
